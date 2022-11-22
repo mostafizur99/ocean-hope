@@ -1,0 +1,1 @@
+export const LOCATION_ATOM_KEY = 'locationAtom';
