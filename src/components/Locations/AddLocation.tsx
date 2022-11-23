@@ -8,11 +8,12 @@ const AddLocation = (props: PageProps) => {
     const [{ locationData }, setLocationData] = useRecoilState(locationAtom);
     const locationRef = useRef<HTMLInputElement>(null);
     const descriptionRef = useRef<HTMLTextAreaElement>(null);
+    const verifyRef = useRef<HTMLInputElement>(null);
 
     const addLocationHandler = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         //validate form
-        if (!locationRef.current || !descriptionRef.current) {
+        if (!locationRef.current || !descriptionRef.current || !verifyRef.current) {
             return
         }
         if (locationRef.current.value === '' || descriptionRef.current.value === '') {
@@ -21,9 +22,12 @@ const AddLocation = (props: PageProps) => {
 
         const locationInput = locationRef.current.value;
         const descriptionInput = descriptionRef.current.value;
+        const verifyInput = verifyRef.current.checked;
+
         const newLocation = {
             location: locationInput,
             description: descriptionInput,
+            isVerified: verifyInput,
         }
 
         // update state 
@@ -59,6 +63,15 @@ const AddLocation = (props: PageProps) => {
                                 className="border block w-full focus:outline-0 focus:ring-1 focus:ring-orange-100"
                                 id="description"
                                 ref={descriptionRef}
+                            />
+                        </div>
+                        <div className='mt-4'>
+                            <label htmlFor="description">Verified</label>
+                            <input
+                                className="border block w-full focus:outline-0"
+                                id="description"
+                                type="checkbox"
+                                ref={verifyRef}
                             />
                         </div>
                         <button className='bg-orange-300 px-3 py-1 mt-4 rounded' type="submit">Add Location</button>
